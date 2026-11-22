@@ -95,12 +95,12 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
     <header className="bg-white border-b border-[#E6E8ED] sticky top-0 z-30 flex flex-col">
       {/* Ticker for Department Announcements */}
       {latestAnnouncement && (
-        <div className="bg-[#7654B8] text-white text-xs px-4 py-1.5 flex items-center justify-between overflow-hidden">
-          <div className="flex items-center space-x-2 truncate">
-            <span className="font-semibold uppercase tracking-wider bg-white/20 px-1.5 py-0.5 rounded text-[10px]">
+        <div className="bg-[#7654B8] text-white text-xs px-3 sm:px-4 py-1.5 flex items-center justify-between overflow-hidden">
+          <div className="flex items-center space-x-2 truncate min-w-0">
+            <span className="font-semibold uppercase tracking-wider bg-white/20 px-1.5 py-0.5 rounded text-[10px] shrink-0">
               Notice
             </span>
-            <span className="font-medium truncate">
+            <span className="font-medium truncate text-xs">
               {latestAnnouncement.title} — {latestAnnouncement.message}
             </span>
           </div>
@@ -111,44 +111,51 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
       )}
 
       {/* Main Bar */}
-      <div className="h-14 px-4 flex items-center justify-between">
-        <div className="flex items-center space-x-3">
+      <div className="h-14 px-3 sm:px-4 flex items-center justify-between gap-2">
+        <div className="flex items-center space-x-2 sm:space-x-3 min-w-0 flex-1">
           <button
             onClick={onToggleSidebar}
-            className="md:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none"
+            className="md:hidden p-1.5 sm:p-2 rounded-md text-gray-600 hover:bg-gray-100 focus:outline-none shrink-0"
             aria-label="Toggle menu"
           >
             <Menu className="w-5 h-5" />
           </button>
-          <div className="flex items-center space-x-2.5">
-            <Link to="/" title="Go to UniSync Landing Page" className="md:hidden">
+          <div className="flex items-center space-x-2 sm:space-x-2.5 min-w-0">
+            <Link to="/" title="Go to UniSync Landing Page" className="md:hidden shrink-0">
               <img
                 src="/unisync-logo.png"
                 alt="UniSync CSE"
                 className="w-7 h-7 object-contain cursor-pointer hover:opacity-90"
               />
             </Link>
-            <div>
-              <h2 className="text-sm sm:text-base font-semibold text-[#24232B] flex items-center gap-2">
-                <span>Department of Computer Science & Engineering</span>
-                <span className="hidden lg:inline text-xs font-normal text-[#737784]">| Anurag University</span>
+            <div className="min-w-0">
+              <h2 className="font-semibold text-[#24232B] flex items-center gap-1.5 truncate">
+                <span className="hidden sm:inline text-sm sm:text-base truncate">
+                  Department of Computer Science & Engineering
+                </span>
+                <span className="sm:hidden text-xs font-bold truncate">
+                  CSE Department
+                </span>
+                <span className="hidden lg:inline text-xs font-normal text-[#737784] shrink-0">
+                  | Anurag University
+                </span>
               </h2>
             </div>
           </div>
         </div>
 
         {/* Action icons */}
-        <div className="flex items-center space-x-2 relative">
+        <div className="flex items-center space-x-1.5 sm:space-x-2 shrink-0">
           {/* Notifications Button */}
           <div ref={notificationRef} className="relative">
             <button
               onClick={() => setShowNotifications((prev) => !prev)}
-              className="p-2 rounded-full text-[#737784] hover:text-[#24232B] hover:bg-gray-100 relative focus:outline-none"
+              className="p-1.5 sm:p-2 rounded-full text-[#737784] hover:text-[#24232B] hover:bg-gray-100 relative focus:outline-none"
               title="Notifications"
             >
               <Bell className="w-5 h-5" />
               {unreadCount > 0 && (
-                <span className="absolute top-1.5 right-1.5 w-4 h-4 bg-[#D94B4B] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                <span className="absolute top-1 sm:top-1.5 right-1 sm:right-1.5 w-4 h-4 bg-[#D94B4B] text-white text-[10px] font-bold rounded-full flex items-center justify-center">
                   {unreadCount > 9 ? '9+' : unreadCount}
                 </span>
               )}
@@ -157,7 +164,7 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
             {/* Notification Dropdown Panel */}
             {showNotifications && (
               <div
-                className="absolute right-0 mt-2 w-[calc(100vw-2rem)] sm:w-96 max-w-sm bg-white rounded-lg shadow-xl border border-[#E6E8ED] py-2 z-50"
+                className="fixed sm:absolute top-14 sm:top-auto right-2 sm:right-0 mt-1 sm:mt-2 w-[calc(100vw-1rem)] sm:w-96 max-w-sm bg-white rounded-lg shadow-xl border border-[#E6E8ED] py-2 z-50"
                 onClick={(e) => e.stopPropagation()}
               >
                 <div className="px-4 py-2 border-b border-[#E6E8ED] flex items-center justify-between">
@@ -204,7 +211,7 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
           {/* User Signout */}
           <button
             onClick={logout}
-            className="flex items-center space-x-1.5 px-3 py-1.5 text-xs font-medium text-[#737784] hover:text-[#D94B4B] hover:bg-red-50 rounded-md transition-colors"
+            className="flex items-center space-x-1 sm:space-x-1.5 px-2 sm:px-3 py-1.5 text-xs font-medium text-[#737784] hover:text-[#D94B4B] hover:bg-red-50 rounded-md transition-colors shrink-0"
             title="Log Out"
           >
             <LogOut className="w-4 h-4" />

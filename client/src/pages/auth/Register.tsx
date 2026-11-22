@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { apiFetch } from '../../services/api';
-import { User, Mail, Lock, Building, CheckCircle } from 'lucide-react';
+import { User, Mail, Lock, Building, CheckCircle, Eye, EyeOff } from 'lucide-react';
 
 export const Register: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +13,8 @@ export const Register: React.FC = () => {
     password: '',
     confirmPassword: ''
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
@@ -157,28 +159,50 @@ export const Register: React.FC = () => {
                 />
               </div>
 
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block text-xs font-medium text-[#24232B]">Password</label>
-                  <input
-                    type="password"
-                    required
-                    value={formData.password}
-                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                    placeholder="••••••••"
-                    className="mt-1 block w-full px-3 py-2 text-sm border border-[#E6E8ED] rounded-md focus:outline-none focus:ring-1 focus:ring-[#7051C8]"
-                  />
+                  <div className="mt-1 relative rounded-md shadow-sm">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      required
+                      value={formData.password}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      placeholder="••••••••"
+                      className="block w-full px-3 pr-10 py-2 text-sm border border-[#E6E8ED] rounded-md focus:outline-none focus:ring-1 focus:ring-[#7051C8]"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword((prev) => !prev)}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none"
+                      aria-label={showPassword ? 'Hide password' : 'Show password'}
+                      title={showPassword ? 'Hide password' : 'Show password'}
+                    >
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
                 </div>
                 <div>
                   <label className="block text-xs font-medium text-[#24232B]">Confirm Password</label>
-                  <input
-                    type="password"
-                    required
-                    value={formData.confirmPassword}
-                    onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                    placeholder="••••••••"
-                    className="mt-1 block w-full px-3 py-2 text-sm border border-[#E6E8ED] rounded-md focus:outline-none focus:ring-1 focus:ring-[#7051C8]"
-                  />
+                  <div className="mt-1 relative rounded-md shadow-sm">
+                    <input
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      required
+                      value={formData.confirmPassword}
+                      onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
+                      placeholder="••••••••"
+                      className="block w-full px-3 pr-10 py-2 text-sm border border-[#E6E8ED] rounded-md focus:outline-none focus:ring-1 focus:ring-[#7051C8]"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword((prev) => !prev)}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none"
+                      aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+                      title={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+                    >
+                      {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
                 </div>
               </div>
 

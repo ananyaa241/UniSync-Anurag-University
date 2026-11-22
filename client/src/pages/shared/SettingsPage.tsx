@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { apiFetch } from '../../services/api';
-import { Laptop, Smartphone, Monitor, Shield, LogOut, CheckCircle, UserCheck, Key, Lock, Edit3 } from 'lucide-react';
+import { Laptop, Smartphone, Monitor, Shield, LogOut, CheckCircle, UserCheck, Key, Lock, Edit3, Eye, EyeOff } from 'lucide-react';
 
 export const SettingsPage: React.FC = () => {
   const { user, updateUser } = useAuth();
@@ -26,6 +26,9 @@ export const SettingsPage: React.FC = () => {
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [passwordMsg, setPasswordMsg] = useState('');
   const [passwordErr, setPasswordErr] = useState('');
 
@@ -299,38 +302,71 @@ export const SettingsPage: React.FC = () => {
             <form onSubmit={handleChangePassword} className="space-y-3 text-xs">
               <div>
                 <label className="block font-semibold text-[#24232B] mb-1">Current Password</label>
-                <input
-                  type="password"
-                  required
-                  value={currentPassword}
-                  onChange={(e) => setCurrentPassword(e.target.value)}
-                  placeholder="Enter your current password"
-                  className="w-full text-xs p-2.5 border border-[#E6E8ED] rounded-lg focus:ring-1 focus:ring-[#7051C8] focus:outline-none"
-                />
+                <div className="relative rounded-md shadow-sm">
+                  <input
+                    type={showCurrentPassword ? 'text' : 'password'}
+                    required
+                    value={currentPassword}
+                    onChange={(e) => setCurrentPassword(e.target.value)}
+                    placeholder="Enter your current password"
+                    className="w-full text-xs p-2.5 pr-10 border border-[#E6E8ED] rounded-lg focus:ring-1 focus:ring-[#7051C8] focus:outline-none"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowCurrentPassword((prev) => !prev)}
+                    className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none"
+                    aria-label={showCurrentPassword ? 'Hide current password' : 'Show current password'}
+                    title={showCurrentPassword ? 'Hide current password' : 'Show current password'}
+                  >
+                    {showCurrentPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <label className="block font-semibold text-[#24232B] mb-1">New Password</label>
-                  <input
-                    type="password"
-                    required
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    placeholder="Min 6 characters"
-                    className="w-full text-xs p-2.5 border border-[#E6E8ED] rounded-lg focus:ring-1 focus:ring-[#7051C8] focus:outline-none"
-                  />
+                  <div className="relative rounded-md shadow-sm">
+                    <input
+                      type={showNewPassword ? 'text' : 'password'}
+                      required
+                      value={newPassword}
+                      onChange={(e) => setNewPassword(e.target.value)}
+                      placeholder="Min 6 characters"
+                      className="w-full text-xs p-2.5 pr-10 border border-[#E6E8ED] rounded-lg focus:ring-1 focus:ring-[#7051C8] focus:outline-none"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowNewPassword((prev) => !prev)}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none"
+                      aria-label={showNewPassword ? 'Hide new password' : 'Show new password'}
+                      title={showNewPassword ? 'Hide new password' : 'Show new password'}
+                    >
+                      {showNewPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
                 </div>
                 <div>
                   <label className="block font-semibold text-[#24232B] mb-1">Confirm New Password</label>
-                  <input
-                    type="password"
-                    required
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    placeholder="Repeat new password"
-                    className="w-full text-xs p-2.5 border border-[#E6E8ED] rounded-lg focus:ring-1 focus:ring-[#7051C8] focus:outline-none"
-                  />
+                  <div className="relative rounded-md shadow-sm">
+                    <input
+                      type={showConfirmPassword ? 'text' : 'password'}
+                      required
+                      value={confirmPassword}
+                      onChange={(e) => setConfirmPassword(e.target.value)}
+                      placeholder="Repeat new password"
+                      className="w-full text-xs p-2.5 pr-10 border border-[#E6E8ED] rounded-lg focus:ring-1 focus:ring-[#7051C8] focus:outline-none"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowConfirmPassword((prev) => !prev)}
+                      className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600 focus:outline-none"
+                      aria-label={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+                      title={showConfirmPassword ? 'Hide confirm password' : 'Show confirm password'}
+                    >
+                      {showConfirmPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    </button>
+                  </div>
                 </div>
               </div>
 
