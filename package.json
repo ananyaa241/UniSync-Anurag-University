@@ -1,0 +1,27 @@
+{
+  "name": "unisync-monorepo",
+  "version": "1.0.0",
+  "description": "UniSync - CSE Department Academic Collaboration & Scheduling Platform for Anurag University",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "build": "npm --prefix server run build && npm --prefix client run build",
+    "build:server": "npm --prefix server run build",
+    "build:client": "npm --prefix client run build",
+    "start:server": "npm --prefix server start",
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "seed": "npm --prefix server run seed"
+  },
+  "keywords": [
+    "unisync",
+    "anurag-university",
+    "cse",
+    "mern"
+  ],
+  "author": "Anurag University CSE Team",
+  "license": "ISC"
+}

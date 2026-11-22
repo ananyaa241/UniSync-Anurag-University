@@ -1,0 +1,83 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Generous, high-legibility fluid typography designed for effortless reading & operation:
+     - Mobile (<640px): 18px root font size (large, clear, touch-friendly, zero iOS zoom issues)
+     - Tablet (640px-1024px): 19.5px
+     - Desktop (1024px-1440px): 21px
+     - Large Desktop (>=1440px): 22px
+  */
+  html {
+    font-size: 18px;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (min-width: 640px) {
+    html {
+      font-size: 19.5px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    html {
+      font-size: 21px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    html {
+      font-size: 22px;
+    }
+  }
+
+  body {
+    @apply bg-[#F7F8FA] text-[#24232B] font-sans antialiased;
+    font-size: 1.05rem;
+    line-height: 1.6;
+  }
+
+  /* Form controls and interactive buttons: large, effortless touch targets */
+  input, select, textarea {
+    font-size: 1.05rem !important;
+    min-height: 44px;
+  }
+
+  button {
+    font-size: 1rem;
+    min-height: 40px;
+  }
+}
+
+/* Scaled arbitrary tiny classes so that no element is ever microscopic or difficult to read */
+.text-\[10px\] {
+  font-size: 0.875rem !important; /* ~16px mobile, ~18.5px desktop */
+  line-height: 1.35rem !important;
+}
+
+.text-\[11px\] {
+  font-size: 0.9375rem !important; /* ~17px mobile, ~19.5px desktop */
+  line-height: 1.45rem !important;
+}
+
+.text-\[12px\] {
+  font-size: 1rem !important; /* ~18px mobile, ~21px desktop */
+  line-height: 1.5rem !important;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
