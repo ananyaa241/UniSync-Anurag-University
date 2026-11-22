@@ -46,7 +46,7 @@ This guide provides step-by-step instructions to deploy the **UniSync CSE** plat
 | **Branch** | `main` |
 | **Root Directory** | *(leave blank for repository root)* |
 | **Runtime** | `Node` |
-| **Build Command** | `npm install && npm run build --prefix server` |
+| **Build Command** | `npm install --include=dev && npm run build --prefix server` |
 | **Start Command** | `npm --prefix server start` |
 | **Plan** | `Free` |
 

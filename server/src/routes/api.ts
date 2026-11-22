@@ -98,7 +98,7 @@ router.post('/ai/generate', authenticate, aiCtrl.generateDraft);
 router.get('/analytics/dashboard', authenticate, analyticsCtrl.getDashboardStats);
 
 // 14. File Upload endpoint
-router.post('/upload', authenticate, upload.single('file'), (req: Request, res: Response): void => {
+router.post('/upload', authenticate, upload.single('file') as any, (req: Request, res: Response): void => {
   if (!req.file) {
     res.status(400).json({ success: false, message: 'No file uploaded.' });
     return;

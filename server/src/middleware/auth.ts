@@ -2,7 +2,8 @@ import { Request, Response, NextFunction } from 'express';
 import { verifyAccessToken, TokenPayload } from '../utils/jwt.js';
 import { User, IUser } from '../models/User.js';
 
-export interface AuthRequest extends Request {
+export interface AuthRequest<P = any, ResBody = any, ReqBody = any, ReqQuery = any>
+  extends Request<P, ResBody, ReqBody, ReqQuery> {
   user?: IUser;
   tokenPayload?: TokenPayload;
 }
