@@ -30,7 +30,7 @@ export interface ITaskComment {
 
 export interface ITask extends Document {
   title: string;
-  description: string;
+  description?: string;
   taskType: 'DEAN_TO_COORDINATOR' | 'COORDINATOR_TO_FACULTY';
   category: string;
   department: string;
@@ -102,7 +102,7 @@ const TaskCommentSchema = new Schema<ITaskComment>(
 const TaskSchema = new Schema<ITask>(
   {
     title: { type: String, required: true, trim: true },
-    description: { type: String, required: true },
+    description: { type: String, default: '' },
     taskType: {
       type: String,
       enum: ['DEAN_TO_COORDINATOR', 'COORDINATOR_TO_FACULTY'],

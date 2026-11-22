@@ -280,8 +280,8 @@ export const TasksPage: React.FC = () => {
   // Handle Create Task by Dean or Coordinator
   const handleCreateTask = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newTitle.trim() || !newDueDate) {
-      alert('Task title and submission deadline are required.');
+    if (!newTitle.trim()) {
+      alert('Task title is required.');
       return;
     }
 
@@ -304,18 +304,20 @@ export const TasksPage: React.FC = () => {
         ? (newCoordinatorId ? [newCoordinatorId] : coordinatorsList.length > 0 ? [coordinatorsList[0]._id] : [])
         : (singleFacultyId ? [singleFacultyId] : facultyList.length > 0 ? [facultyList[0]._id] : []);
 
+      const finalDueDate = newDueDate || new Date(Date.now() + 7 * 86400000).toISOString().split('T')[0];
+
       const res = await apiFetch('/tasks', {
         method: 'POST',
         body: JSON.stringify({
-          title: newTitle,
-          description: newDesc,
+          title: newTitle.trim(),
+          description: newDesc ? newDesc.trim() : '',
           category: newCategory,
           priority: newPriority,
           startDate: newStartDate || todayIST,
-          dueDate: newDueDate,
-          dueTime: newDueTime,
-          instructions: newInstructions,
-          expectedDeliverables: newDeliverables,
+          dueDate: finalDueDate,
+          dueTime: newDueTime || '17:00',
+          instructions: newInstructions ? newInstructions.trim() : '',
+          expectedDeliverables: newDeliverables ? newDeliverables.trim() : '',
           attachments,
           assigneeIds
         })
@@ -1720,14 +1722,13 @@ export const TasksPage: React.FC = () => {
               {/* Detailed Description */}
               <div>
                 <label className="block font-semibold text-[#24232B] mb-1">
-                  Detailed Description & Objective <span className="text-red-500">*</span>
+                  Detailed Description & Objective <span className="text-gray-400 font-normal text-xs">(Optional)</span>
                 </label>
                 <textarea
-                  required
                   rows={3}
                   value={newDesc}
                   onChange={(e) => setNewDesc(e.target.value)}
-                  placeholder="Describe scope, objectives, institutional requirements..."
+                  placeholder="Describe scope, objectives, institutional requirements (optional)..."
                   className="w-full p-2.5 border border-[#E6E8ED] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#7051C8]"
                 />
               </div>
@@ -1810,12 +1811,9 @@ export const TasksPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-[#24232B] mb-1">
-                    Deadline <span className="text-red-500">*</span>
-                  </label>
+                  <label className="block font-semibold text-[#24232B] mb-1">Deadline</label>
                   <input
                     type="date"
-                    required
                     min={todayIST}
                     value={newDueDate}
                     onChange={(e) => setNewDueDate(e.target.value)}
@@ -1833,16 +1831,30 @@ export const TasksPage: React.FC = () => {
                 </div>
               </div>
 
+              {/* Instructions & Guidelines */}
+              <div>
+                <label className="block font-semibold text-[#24232B] mb-1">
+                  Instructions & Guidelines <span className="text-gray-400 font-normal text-xs">(Optional)</span>
+                </label>
+                <textarea
+                  rows={2}
+                  value={newInstructions}
+                  onChange={(e) => setNewInstructions(e.target.value)}
+                  placeholder="Specific guidelines or instructions for faculty (optional)..."
+                  className="w-full p-2 border border-[#E6E8ED] rounded-lg"
+                />
+              </div>
+
               {/* Expected Deliverables */}
               <div>
                 <label className="block font-semibold text-[#24232B] mb-1">
-                  Expected Deliverables & Specific Formats
+                  Expected Deliverables & Specific Formats <span className="text-gray-400 font-normal text-xs">(Optional)</span>
                 </label>
                 <textarea
                   rows={2}
                   value={newDeliverables}
                   onChange={(e) => setNewDeliverables(e.target.value)}
-                  placeholder="e.g. Compiled Excel dossier, PDF report signed by committee..."
+                  placeholder="e.g. Compiled Excel dossier, PDF report signed by committee (optional)..."
                   className="w-full p-2 border border-[#E6E8ED] rounded-lg"
                 />
               </div>

@@ -259,22 +259,23 @@ export const Dashboard: React.FC = () => {
 
   const handleCreateDeanTask = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newTitle.trim() || !newDueDate) {
-      alert('Title and due date are required.');
+    if (!newTitle.trim()) {
+      alert('Task title is required.');
       return;
     }
+    const finalDueDate = newDueDate || new Date(Date.now() + 7 * 86400000).toISOString().split('T')[0];
     try {
       const res = await apiFetch('/tasks', {
         method: 'POST',
         body: JSON.stringify({
-          title: newTitle,
-          description: newDesc,
+          title: newTitle.trim(),
+          description: newDesc ? newDesc.trim() : '',
           category: newCategory,
           priority: newPriority,
-          dueDate: newDueDate,
-          dueTime: newDueTime,
-          instructions: newInstructions,
-          expectedDeliverables: newDeliverables,
+          dueDate: finalDueDate,
+          dueTime: newDueTime || '17:00',
+          instructions: newInstructions ? newInstructions.trim() : '',
+          expectedDeliverables: newDeliverables ? newDeliverables.trim() : '',
           assigneeIds: newCoordinatorId ? [newCoordinatorId] : []
         })
       });
@@ -1987,7 +1988,6 @@ export const Dashboard: React.FC = () => {
                   <label className="block font-semibold text-[#24232B]">Due Date</label>
                   <input
                     type="date"
-                    required
                     value={newDueDate}
                     onChange={(e) => setNewDueDate(e.target.value)}
                     className="mt-1 w-full p-2 border border-[#E6E8ED] rounded-lg"
@@ -2005,22 +2005,26 @@ export const Dashboard: React.FC = () => {
               </div>
 
               <div>
-                <label className="block font-semibold text-[#24232B]">Description</label>
+                <label className="block font-semibold text-[#24232B]">
+                  Description <span className="text-gray-400 font-normal text-xs">(Optional)</span>
+                </label>
                 <textarea
                   value={newDesc}
                   onChange={(e) => setNewDesc(e.target.value)}
-                  placeholder="Task scope and context..."
+                  placeholder="Task scope and context (optional)..."
                   rows={2}
                   className="mt-1 w-full p-2 border border-[#E6E8ED] rounded-lg"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-[#24232B]">Instructions</label>
+                <label className="block font-semibold text-[#24232B]">
+                  Instructions <span className="text-gray-400 font-normal text-xs">(Optional)</span>
+                </label>
                 <textarea
                   value={newInstructions}
                   onChange={(e) => setNewInstructions(e.target.value)}
-                  placeholder="Specific guidelines for the Coordinator..."
+                  placeholder="Specific guidelines for the Coordinator (optional)..."
                   rows={2}
                   className="mt-1 w-full p-2 border border-[#E6E8ED] rounded-lg"
                 />

@@ -116,8 +116,8 @@ export const createTask = async (req: AuthRequest, res: Response): Promise<void>
       attachments
     } = req.body;
 
-    if (!title || !description || !dueDate) {
-      res.status(400).json({ success: false, message: 'Title, description, and dueDate are required.' });
+    if (!title || !title.trim()) {
+      res.status(400).json({ success: false, message: 'Task title is required.' });
       return;
     }
 
@@ -129,9 +129,13 @@ export const createTask = async (req: AuthRequest, res: Response): Promise<void>
       submissionFiles: []
     }));
 
+    const effectiveDueDate = dueDate ? new Date(dueDate) : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    const effectiveDesc = description ? description.trim() : '';
+    const effectiveInstructions = instructions ? instructions.trim() : '';
+
     const task = await Task.create({
       title: title.trim(),
-      description: description.trim(),
+      description: effectiveDesc,
       category: category || (isDean ? 'Accreditation' : 'Academic'),
       priority: priority || 'MEDIUM',
       createdBy: req.user!._id,
@@ -139,10 +143,10 @@ export const createTask = async (req: AuthRequest, res: Response): Promise<void>
       taskType: isDean ? 'DEAN_TO_COORDINATOR' : 'COORDINATOR_TO_FACULTY',
       assignees,
       startDate: startDate ? new Date(startDate) : new Date(),
-      dueDate: new Date(dueDate),
+      dueDate: effectiveDueDate,
       dueTime: dueTime || '17:00',
       reviewRequired: reviewRequired !== undefined ? reviewRequired : true,
-      instructions: instructions ? instructions.trim() : '',
+      instructions: effectiveInstructions,
       expectedDeliverables: expectedDeliverables ? expectedDeliverables.trim() : '',
       attachments: Array.isArray(attachments) ? attachments : [],
       requiredDocumentsDescription,
@@ -424,7 +428,7 @@ export const updateTask = async (req: AuthRequest, res: Response): Promise<void>
     }
 
     if (title) task.title = title.trim();
-    if (description) task.description = description.trim();
+    if (description !== undefined) task.description = description ? description.trim() : '';
     if (category) task.category = category;
     if (priority) task.priority = priority;
     if (startDate) task.startDate = new Date(startDate);
