@@ -8,6 +8,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import path from 'path';
 import { connectDB } from './config/db.js';
+import { ensureInitialData } from './config/initData.js';
 import { router as apiRouter } from './routes/api.js';
 import { setupSockets } from './sockets/chatSocket.js';
 
@@ -62,7 +63,8 @@ setupSockets(io);
 const PORT = process.env.PORT || 5000;
 
 // Connect DB and start server
-connectDB().then(() => {
+connectDB().then(async () => {
+  await ensureInitialData();
   server.listen(PORT, () => {
     console.log(`====================================================`);
     console.log(`[UniSync] CSE Department Server is running on port ${PORT}`);
