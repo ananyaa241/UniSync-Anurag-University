@@ -35,7 +35,19 @@ app.use('/uploads', express.static(uploadsPath));
 // API routes
 app.use('/api', apiRouter);
 
-// Health check
+// Root Welcome & Health Check
+app.get('/', (req, res) => {
+  res.json({
+    status: 'online',
+    platform: 'UniSync — Department of Computer Science & Engineering',
+    institution: 'Anurag University',
+    version: '1.0.0',
+    message: 'UniSync Academic API & Real-time Services are running smoothly.',
+    healthCheck: '/health',
+    timestamp: new Date()
+  });
+});
+
 app.get('/health', (req, res) => {
   res.json({
     status: 'healthy',
