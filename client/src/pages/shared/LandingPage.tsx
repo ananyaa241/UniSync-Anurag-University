@@ -19,51 +19,59 @@ export const LandingPage: React.FC = () => {
     <div className="min-h-screen bg-white text-[#24232B] flex flex-col font-sans selection:bg-[#7051C8] selection:text-white">
       {/* A. Minimal Navigation Bar */}
       <header className="sticky top-0 z-40 bg-white border-b border-[#E6E8ED]">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+        <div className="max-w-6xl mx-auto px-3 sm:px-6 h-16 flex items-center justify-between gap-2">
+          <div className="flex items-center space-x-2.5 sm:space-x-3 min-w-0 flex-1">
             <img
               src="/unisync-logo.png"
               alt="UniSync CSE"
-              className="w-9 h-9 object-contain"
+              className="w-8 h-8 sm:w-9 sm:h-9 object-contain shrink-0"
             />
-            <div>
-              <div className="flex items-center space-x-2">
-                <span className="font-bold text-base text-[#24232B] tracking-tight">UniSync CSE</span>
-                <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-semibold bg-purple-50 text-[#7051C8] rounded border border-purple-200">
+            <div className="min-w-0">
+              <div className="flex items-center space-x-1.5 sm:space-x-2">
+                <span className="font-bold text-sm sm:text-base text-[#24232B] tracking-tight truncate">
+                  UniSync CSE
+                </span>
+                <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-semibold bg-purple-50 text-[#7051C8] rounded border border-purple-200 shrink-0">
                   Department Portal
                 </span>
               </div>
-              <p className="text-[11px] text-gray-500 font-medium">Anurag University &bull; Dept. of Computer Science & Engineering</p>
+              <p className="text-[11px] text-gray-500 font-medium truncate hidden sm:block">
+                Anurag University &bull; Dept. of Computer Science & Engineering
+              </p>
+              <p className="text-[10px] text-gray-500 font-medium truncate sm:hidden">
+                Anurag University &bull; CSE
+              </p>
             </div>
           </div>
 
-          <div className="flex items-center space-x-2.5">
+          <div className="flex items-center space-x-1.5 sm:space-x-2.5 shrink-0">
             <Link
               to="/login"
-              className="px-3.5 py-1.5 text-xs font-semibold text-gray-700 hover:text-[#7051C8] hover:bg-purple-50/50 rounded-lg transition-colors"
+              className="px-2.5 sm:px-3.5 py-1.5 text-xs font-semibold text-gray-700 hover:text-[#7051C8] hover:bg-purple-50/50 rounded-lg transition-colors whitespace-nowrap"
             >
               Sign In
             </Link>
             <Link
               to="/register"
-              className="px-4 py-2 bg-[#7051C8] hover:bg-[#50305F] text-white rounded-lg text-xs font-semibold shadow-xs transition-colors flex items-center space-x-1.5"
+              className="px-3 sm:px-4 py-1.5 sm:py-2 bg-[#7051C8] hover:bg-[#50305F] text-white rounded-lg text-xs font-semibold shadow-xs transition-colors flex items-center space-x-1 sm:space-x-1.5 shrink-0 whitespace-nowrap"
             >
               <span>Get Started</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3.5 h-3.5 shrink-0" />
             </Link>
           </div>
         </div>
       </header>
 
       {/* B. Hero Section */}
-      <section className="py-14 sm:py-20 px-4 sm:px-6 bg-white border-b border-[#E6E8ED]">
+      <section className="py-12 sm:py-20 px-4 sm:px-6 bg-white border-b border-[#E6E8ED]">
         <div className="max-w-4xl mx-auto text-center space-y-5">
-          <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-200 text-xs font-medium text-[#7051C8]">
-            <span className="w-2 h-2 rounded-full bg-[#7051C8]"></span>
-            <span>Official Academic Management System &bull; CSE Department</span>
+          <div className="inline-flex items-center space-x-1.5 sm:space-x-2 px-3 py-1 rounded-full bg-purple-50 border border-purple-200 text-[11px] sm:text-xs font-medium text-[#7051C8] max-w-full">
+            <span className="w-2 h-2 rounded-full bg-[#7051C8] shrink-0"></span>
+            <span className="hidden sm:inline">Official Academic Management System &bull; CSE Department</span>
+            <span className="sm:hidden">Academic Management &bull; CSE Department</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#24232B] tracking-tight leading-tight">
+          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-[#24232B] tracking-tight leading-tight">
             Simplifying Academic Coordination.{' '}
             <span className="text-[#7051C8]">Connecting Every Role.</span>
           </h1>
