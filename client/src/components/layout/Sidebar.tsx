@@ -147,8 +147,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
       </div>
 
       {/* Navigation list */}
-      <nav className="flex-1 overflow-y-auto px-2.5 py-3 space-y-1.5">
-        <div className="px-3 py-1.5 text-xs font-semibold uppercase tracking-wider text-gray-400">
+      <nav className="flex-1 overflow-y-auto px-2 py-3 space-y-1">
+        <div className="px-3 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-gray-400">
           Academic Workspace
         </div>
         {filteredLinks.map((item) => {
@@ -159,14 +159,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
               to={item.to}
               onClick={onCloseMobile}
               className={({ isActive }) =>
-                `flex items-center space-x-3 px-3.5 py-2.5 rounded-lg text-sm sm:text-base font-medium transition-colors ${
+                `flex items-center space-x-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   isActive
                     ? 'bg-[#7051C8] text-white shadow-sm'
                     : 'text-gray-200 hover:bg-[#50305F] hover:text-white'
                 }`
               }
             >
-              <Icon className="w-5 h-5 shrink-0 text-gray-300" />
+              <Icon className="w-4 h-4 shrink-0 text-gray-300" />
               <span className="truncate">{item.label}</span>
             </NavLink>
           );
@@ -174,14 +174,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ onCloseMobile }) => {
       </nav>
 
       {/* User profile footer */}
-      <div className="p-3.5 border-t border-[#50305F] bg-[#301a3b]">
+      <div className="p-3 border-t border-[#50305F] bg-[#301a3b]">
         <div className="flex items-center space-x-3">
-          <div className="w-9 h-9 rounded-full bg-[#7051C8] flex items-center justify-center font-bold text-sm text-white uppercase shrink-0">
+          <div className="w-8 h-8 rounded-full bg-[#7051C8] flex items-center justify-center font-bold text-xs text-white uppercase shrink-0">
             {user.fullName.charAt(0)}
           </div>
           <div className="min-w-0 flex-1">
-            <p className="text-sm font-semibold text-white truncate">{user.fullName}</p>
-            <p className="text-xs text-gray-300 truncate">
+            <p className="text-xs font-semibold text-white truncate">{user.fullName}</p>
+            <p className="text-[11px] text-gray-300 truncate">
               {role === 'HOD' ? 'Dean' : user.designation || 'Faculty'} • {user.department || 'CSE'}
             </p>
           </div>

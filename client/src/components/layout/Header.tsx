@@ -111,7 +111,7 @@ export const Header: React.FC<HeaderProps> = ({ onToggleSidebar }) => {
       )}
 
       {/* Main Bar */}
-      <div className="min-h-[4rem] px-4 py-2 flex items-center justify-between">
+      <div className="h-14 px-4 flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <button
             onClick={onToggleSidebar}
